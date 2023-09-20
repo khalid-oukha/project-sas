@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1695221912 source:c:\users\youcode\desktop\gestiondestach\main.c
+	<stdio.h>
+	<stdlib.h>
+	<windows.h>
+	<time.h>
+	"MainMenu.h"
+	"functions.h"
+
+1695225666 c:\users\youcode\desktop\gestiondestach\mainmenu.h
+
+1695226056 c:\users\youcode\desktop\gestiondestach\functions.h
+
+1695224251 source:c:\users\youcode\desktop\gestiondestach\t_functions.c
+
