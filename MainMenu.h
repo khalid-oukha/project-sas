@@ -35,7 +35,7 @@ void Menu_Afficher()
             liste_Per_deadline();
             break;
         case 4 :
-            //afficher_deadline();
+            afficher_deadline();
             break;
 
         default :
@@ -165,7 +165,7 @@ void Menu()
             break;
         case 8 :
             system("cls");
-            nbr_Total ();
+            nbr_T_completes ();
             Sleep(2);
             break;
         default :

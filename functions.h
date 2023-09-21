@@ -18,10 +18,15 @@ bool exist(int id)
     return false;
 }
 //----convert dates to days .
-int convert_days(int index)
+int calcul_deadline(int index)
 {
-    int total_days=(myTache[index].deadline.tm_year*365)+(myTache[index].deadline.tm_mon*30)+(myTache[index].deadline.tm_mday);
-    return total_days;
+    int deadline_days=(myTache[index].deadline.tm_year*365)+(myTache[index].deadline.tm_mon*30)+(myTache[index].deadline.tm_mday);
+    int numberDays;
+    time_t today = time(NULL);
+    numberDays=today/(60*60*24);
+    deadline_days=deadline_days-numberDays;
+
+    return deadline_days;
 }
 
 //-----------------------------------------ajoutes une tache---------------------------------------
@@ -152,23 +157,20 @@ void liste_Per_Alphabetique()
 void liste_Per_deadline()
 {
     int x,y;
-    Tache stock[10];
-    int numberDays;
-    time_t today;
-    today=time(NULL);
-    numberDays=today/(60*60*24);
+    Tache stock;
+
     for(int i=0; i<increment; i++)
     {
-        x=convert_days(i)-numberDays;
+        x=calcul_deadline(i);
         for(int j=i+1; j<increment; j++)
         {
-            y=convert_days(j)-numberDays;
+            y=calcul_deadline(j);
 
             if(x>y)
             {
-                stock[1]=myTache[i];
+                stock=myTache[i];
                 myTache[i]=myTache[j];
-                myTache[j]=stock[1];
+                myTache[j]=stock;
             }
 
         }
@@ -179,6 +181,20 @@ void liste_Per_deadline()
 //----afficher  deadline 3 jour moix
 void afficher_deadline()
 {
+    for(int i=0; i<increment; i++)
+    {
+        printf("`\t %d",calcul_deadline(i));
+        if(calcul_deadline(i)<=3)
+        {
+            printf("\n\t\t------------------------------------tache %d -----------------------------------------",i+1);
+            printf("\n\n\t\t %d",myTache[i].id_tache);
+            printf("\t\t %s",myTache[i].title);
+            printf("\t\t %s",myTache[i].description);
+            printf("\t\t %d/%d/%d",myTache[i].deadline.tm_year,myTache[i].deadline.tm_mon,myTache[i].deadline.tm_mday);
+            printf("\t\t %s",myTache[i].status);
+            printf("\n\t\t---------------------------------------------------------------------------------------");
+        }
+    }
 
 }
 
@@ -337,16 +353,35 @@ void Rechercher_Titre (char titel[30])
 }
 
 //-----------------------------------------Statistiques des taches-----------------------------------
-//----Afficher nbr total tâches.
-void nbr_Total ()
-{
-    printf("\n\n\t\t====> Nombre total des taches est : %d \n",increment);
-}
+
 //----Afficher nbr tâches complètes / incomplètes.
-void nbr_T_completes () {}
-void nbr_T_incompletes () {}
+    int done_count,todo_count;
+void nbr_T_completes ()
+{
+
+    for (int i = 0; i < increment; i++)
+    {
+        if (strcmp(myTache[i].status, "DONE") == 0)
+        {
+            done_count++;
+        }
+        else if (strcmp(myTache[i].status, "DOING"  ) == 0 || strcmp(myTache[i].status, "TO DO"  ) == 0)
+        {
+            todo_count++;
+        }
+    }
+
+    printf("\n\n\t\t====> Nombre total des taches est : %d \n", increment);
+    printf("\n\n\t\t====> Afficher le nombre de tâches completes : %d \n", done_count);
+    printf("\n\n\t\t====> Afficher le nombre de tâches incompletes : %d \n", todo_count);
+
+}
 //----afficher nbr jours restants .
-void nbr_jour_rest () {}
+void nbr_jour_rest () {
+
+
+
+}
 
 
 
