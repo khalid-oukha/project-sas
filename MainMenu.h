@@ -60,7 +60,7 @@ void Menu_modification()
         printf("\n\t---------------------------------Menu modifier--------------------------------\t\n");
         printf("\n\t\t 1. modifier description    \n");
         printf("\t\t 2. modifier status    \n");
-        printf("\t\t 3. modifier description    \n");
+        printf("\t\t 3. modifier deadline    \n");
         printf("\t\t 0. Quite  \n");
         printf("\t------------------------------------votre choix-----------------------------------\t");
         printf("\n\t\t entrez votre choix :  \n");
@@ -77,10 +77,14 @@ void Menu_modification()
             modifier_description(id);
             break;
         case 2 :
-            modifier_status ();
+            printf("\n\t\t entrer id de tache pour modifier : ");
+            scanf("%d", &id);
+            modifier_status (id);
             break;
         case 3 :
-            modifier_deadline ();
+            printf("\n\t\t entrer id de tache pour modifier : ");
+            scanf("%d", &id);
+            modifier_deadline (id);
             break;
 
         default :
@@ -137,7 +141,10 @@ void Menu()
             Menu_modification();
             break;
         case 5 :
-
+            printf("\n\t\t entrer id de tache pour supprimer : ");
+            scanf("%d", &id);
+            system("cls");
+            supprimer (id);
             break;
         case 6 :
             printf("\n\tdonner id de tache   :");

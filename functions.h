@@ -105,7 +105,6 @@ void Afficher()
         system("cls");
         printf("\n\t\t Aucan tache pour le moment \n");
         Sleep(2);
-        system("cls");
     }
     else
     {
@@ -163,7 +162,7 @@ void modifier_description (int id)
         printf("\t\t entrez new desciption  :");
         scanf("%s",&newD);
         strcpy(myTache[Rechercher_Id(id)].description,newD);
-        printf("\t\t description bien modifier  :");
+        printf("\n\n\t\t description bien modifier  :");
     }
     else
     {
@@ -174,63 +173,148 @@ void modifier_description (int id)
     }
 }
 
-    void modifier_status () {}
-    void modifier_deadline () {}
+void modifier_status (int id)
+{
+
+    int choose;
+    if(exist(id))
+    {
+        printf("\n\t\t 1- TO DO : ");
+        printf("\n\t\t 2- DOING : ");
+        printf("\n\t\t 3- DONE : ");
+        printf("\n\t\t choisi status de tache : ");
+        scanf("%d", &choose);
+
+        switch(choose)
+        {
+        case 1 :
+            strcpy(myTache[Rechercher_Id(id)].status, "TO DO");
+            printf("\n\n\t\t status bien modifier  :");
+            break;
+        case 2 :
+            strcpy(myTache[Rechercher_Id(id)].status, "DOING");
+            printf("\n\n\t\t status bien modifier  :");
+            break;
+        case 3 :
+            strcpy(myTache[Rechercher_Id(id)].status, "DONE");
+            printf("\n\n\t\t status bien modifier  :");
+            break;
+        default :
+            printf("invalide choix!!");
+            break;
+
+        }
+
+    }
+    else
+    {
+        system("cls");
+        printf("id %d  id tache introuvable merci de choisir un autre !! ");
+
+    }
+
+
+}
+void modifier_deadline (int id)
+{
+
+    int d,m,y;
+    if(exist(id))
+    {
+
+        printf("\t\t entrez new deadline format YYYY/MM/DD   :");
+        scanf("%d %d %d", &y, &m, &d);
+
+        myTache[Rechercher_Id(id)].deadline.tm_year=y;
+        myTache[Rechercher_Id(id)].deadline.tm_mon=m;
+        myTache[Rechercher_Id(id)].deadline.tm_mday=d;
+        //strcpy(myTache[Rechercher_Id(id)].description,newD);
+        system("cls");
+        printf("\n\n\t\t deadline bien modifier  ");
+    }
+    else
+    {
+        system("cls");
+        printf("id %d  id tache introuvable merci de choisir un autre !! ");
+
+
+    }
+}
 
 //-----------------------------------------Supprimer une tache---------------------------------------
-    void supprimer () {}
+void supprimer (int id)
+{
+    int position;
+    if(exist(id))
+    {
+        position=Rechercher_Id(id);
+        for(int i=position; i<increment; i++)
+        {
+            myTache[i]=myTache[i+1];
+
+        }
+            increment--;
+            printf("\n\n--------------bien supprimer------------");
+
+    }
+    else
+    {
+        printf("erreur !!");
+    }
+
+}
 
 //-----------------------------------------Rechercher une tache--------------------------------------
 
 //----Rechercher par Id.
-    int Rechercher_Id (int id)
+int Rechercher_Id (int id)
+{
+    for(int i=0; i<increment; i++)
     {
-        for(int i=0; i<increment; i++)
+        if(id==myTache[i].id_tache)
         {
-            if(id==myTache[i].id_tache)
-            {
-                printf("\n\t---------------------------tache %d -------------------------",i+1);
-                printf("\n\t\t %d",myTache[i].id_tache);
-                printf("\t\t %s",myTache[i].title);
-                printf("\t\t %s",myTache[i].description);
-                printf("\t\t %d/%d/%d",myTache[i].deadline.tm_year,myTache[i].deadline.tm_mon,myTache[i].deadline.tm_mday);
-                printf("\t\t %s",myTache[i].status);
-                return i;
-            }
+            printf("\n\t---------------------------tache %d -------------------------",i+1);
+            printf("\n\t\t %d",myTache[i].id_tache);
+            printf("\t\t %s",myTache[i].title);
+            printf("\t\t %s",myTache[i].description);
+            printf("\t\t %d/%d/%d",myTache[i].deadline.tm_year,myTache[i].deadline.tm_mon,myTache[i].deadline.tm_mday);
+            printf("\t\t %s",myTache[i].status);
+            return i;
         }
-        return 0;
-        printf("\n\t\t Aucan tache pour le moment \n");
     }
+    return 0;
+    printf("\n\t\t Aucan tache pour le moment \n");
+}
 //----Rechercher par Titre
-    void Rechercher_Titre (char titel[30])
+void Rechercher_Titre (char titel[30])
+{
+    for(int i=0; i<increment; i++)
     {
-        for(int i=0; i<increment; i++)
+        if(strcmp(titel[20],myTache[i].title)==0)
         {
-            if(strcmp(titel[20],myTache[i].title)==0)
-            {
-                printf("\n\t---------------------------tache %d -------------------------",i+1);
-                printf("\n\t\t %d",myTache[i].id_tache);
-                printf("\t\t %s",myTache[i].title);
-                printf("\t\t %s",myTache[i].description);
-                printf("\t\t %d/%d/%d",myTache[i].deadline.tm_year,myTache[i].deadline.tm_mon,myTache[i].deadline.tm_mday);
-                printf("\t\t %s",myTache[i].status);
+            printf("\n\t---------------------------tache %d -------------------------",i+1);
+            printf("\n\t\t %d",myTache[i].id_tache);
+            printf("\t\t %s",myTache[i].title);
+            printf("\t\t %s",myTache[i].description);
+            printf("\t\t %d/%d/%d",myTache[i].deadline.tm_year,myTache[i].deadline.tm_mon,myTache[i].deadline.tm_mday);
+            printf("\t\t %s",myTache[i].status);
 
-            }
         }
-
     }
+
+}
 
 //-----------------------------------------Statistiques des taches-----------------------------------
 //----Afficher nbr total tâches.
-    void nbr_Total ()
-    {
-        printf("\n\t\t nombre total des taches est : %d \n",increment);
-    }
+void nbr_Total ()
+{
+    printf("\n\t\t nombre total des taches est : %d \n",increment);
+}
 //----Afficher nbr tâches complètes / incomplètes.
-    void nbr_T_completes () {}
-    void nbr_T_incompletes () {}
+void nbr_T_completes () {}
+void nbr_T_incompletes () {}
 //----afficher nbr jours restants .
-    void nbr_jour_rest () {}
+void nbr_jour_rest () {}
 
 
 
