@@ -96,6 +96,7 @@ void ajouterTachs()
 
 }
 //-----------------------------------------Afficher list des tache ---------------------------------------
+
 void Afficher()
 {
     if(increment==0)
@@ -153,7 +154,32 @@ void afficher_deadline()
 
 //-----------------------------------------Modifier les taches---------------------------------------
 
-void modifier_description () {}
+void modifier_description ()
+{
+
+    /* Tache stock;
+     int num;
+     printf("\n\t\t entrer id de tache : ");
+     scanf("%d", &num);
+
+     if(exist(num))
+     {
+
+         if(myTache.id_tache==num)
+         {
+             printf("old title :",myTache.id)
+             printf("modifier le title :");
+             myTache.title
+         }
+     }
+     else
+     {
+         systeme("cls");
+         printf("id %d  id tache introuvable merci de choisir un autre !! ", myTache[increment].id_tache);
+         sleep(2);
+         break;
+     }*/
+}
 void modifier_status () {}
 void modifier_deadline () {}
 
@@ -162,10 +188,37 @@ void supprimer () {}
 
 //-----------------------------------------Rechercher une tache--------------------------------------
 
-//----Rechercher par Identifiant.
-void Rechercher_Id () {}
+//----Rechercher par Id.
+void Rechercher_Id (int id)
+{
+    for(int i=0; i<increment; i++)
+    {
+        if(id==myTache[i].id_tache)
+        {
+            printf("\n\t---------------------------tache %d -------------------------",i+1);
+            printf("\n\t\t %d",myTache[i].id_tache);
+            printf("\t\t %s",myTache[i].title);
+            printf("\t\t %s",myTache[i].description);
+            printf("\t\t %d/%d/%d",myTache[i].deadline.tm_year,myTache[i].deadline.tm_mon,myTache[i].deadline.tm_mday);
+            printf("\t\t %s",myTache[i].status);
+        }
+    }
+
+    printf("\n\t\t Aucan tache pour le moment \n");
+}
 //----Rechercher par Titre
-void Rechercher_Titre () {}
+void Rechercher_Titre (char titel[20])
+{
+    for(int i=0; i<increment; i++)
+    {
+        if(titel[20]==myTache[i].id_tache)
+        {
+
+            return true;
+        }
+    }
+
+}
 
 //-----------------------------------------Statistiques des taches-----------------------------------
 //----Afficher nbr total tâches.

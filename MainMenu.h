@@ -1,19 +1,20 @@
 
 void Menu()
 {
-    int choix;
-
+    int choix,id;
+    char title;
     do
     {
-        printf("\t---------------------------------menu--------------------------------\t");
+        printf("\n\t---------------------------------menu--------------------------------\t\n");
         printf("\n \t\t 1. Ajouter une tache    \n");
-        printf("\t\t 2. Ajouter plusieur tache     \n");
-        printf("\t\t 3. Afficher list des tache   \n");
-        printf("\t\t 4. Modifier les taches  \n");
-        printf("\t\t 5. Supprimer une tache    \n");
-        printf("\t\t 6. Rechercher une tache   \n");
-        printf("\t\t 7. Statistiques des taches  \n");
-        printf("\t\t 8. Quite  \n");
+        printf("\t\t 2 Ajouter plusieur tache     \n");
+        printf("\t\t 3 Afficher list des tache   \n");
+        printf("\t\t 4 Modifier les taches  \n");
+        printf("\t\t 5 Supprimer une tache    \n");
+        printf("\t\t 6. Rechercher par id  \n");
+        printf("\t\t 7. Rechercher par title  \n");
+        printf("\t\t 8. Statistiques des taches  \n");
+        printf("\t\t 0. Quite  \n");
         printf("\t----------------------------votre choix------------------------------\t");
         printf("\n\t\t entrez votre choix :  \n");
         printf("\t\t");
@@ -38,16 +39,24 @@ void Menu()
 
             break;
         case 6 :
-
+            printf("\n\tdonner id de tache   :");
+            scanf("%d",&id);
+            system("cls");
+            Rechercher_Id(id);
+            sleep(2);
             break;
         case 7 :
-
+            printf("\n\t donner title de tache   :");
+            scanf("%s",&title);
+            system("cls");
+            Rechercher_Titre(title);
+            sleep(2);
             break;
         case 8 :
 
             break;
         default :
-            printf("\t\t choix invalide");
+            printf("\t\t choix invalide \n");
             break;
         }
 
@@ -64,7 +73,7 @@ void Menu_Afficher()
 
     do
     {
-        printf("\t---------------------------------Menu afficher--------------------------------\t");
+        printf("\n\t---------------------------------Menu afficher--------------------------------\t\n");
         printf("\n\t\t 1. afficher tous les taches   \n");
         printf("\t\t 2. Trier les tâches par ordre alphabétique.    \n");
         printf("\t\t 3. Trier les tâches par deadline     \n");
@@ -78,6 +87,7 @@ void Menu_Afficher()
 
         switch (choix)
         {
+
         case 1 :
             Afficher();
             break;
@@ -96,7 +106,9 @@ void Menu_Afficher()
             break;
         }
 
+
     }
     while (choix!=0);
+    system("cls");
 
 }
