@@ -51,41 +51,36 @@ ajouterTach:
         printf("\n\t\t 3- DONE : ");
         printf("\n\t\t choisi status de tache : ");
         scanf("%d", &choixStatus);
-        do
+
+        switch(choixStatus)
         {
+        case 1 :
+            strcpy(myTache[increment].status, "TO DO");
+            break;
+        case 2 :
+            strcpy(myTache[increment].status, "DOING");
+            break;
+        case 3 :
+            strcpy(myTache[increment].status, "DONE");
+            break;
+        default :
+            printf("invalide choix!!");
+            break;
 
-
-
-
-            switch(choixStatus)
-            {
-            case 1 :
-                strcpy(myTache[increment].status, "TO DO");
-                break;
-            case 2 :
-                strcpy(myTache[increment].status, "DOING");
-                break;
-            case 3 :
-                strcpy(myTache[increment].status, "DONE");
-                break;
-            default :
-                printf("invalide choix!!");
-                break;
-            }
         }
-        while(choixStatus!=0);
-
-
-
-        system("cls");
-        printf("\n\n\t\t-------------------votre tach est bien ajouter-------------------");
-        sleep(2);
-        system("cls");
-        increment++;
-
     }
 
+
+
+    system("cls");
+    printf("\n\n\t\t-------------------votre tach est bien ajouter-------------------");
+    sleep(2);
+    system("cls");
+    increment++;
+
 }
+
+
 
 //-----------------------------------------Ajouter plusieur tache---------------------------------------
 void ajouterTachs()
@@ -115,7 +110,7 @@ void Afficher()
     {
         for(int i=0; i<increment; i++)
         {
-            printf("\n\t\t-------------------tache %d-------------------\n",i+1);
+            printf("\n\t\t-------------------tache %d -------------------",i+1);
             printf("\n\t\t %d",myTache[i].id_tache);
             printf("\t\t %s",myTache[i].title);
             printf("\t\t %s",myTache[i].description);
@@ -126,15 +121,24 @@ void Afficher()
 
 
 }
-//----menu de affichage
-void Menu_Afficher()
-{
 
-}
 //----trie par Alphabetique
 void liste_Per_Alphabetique()
 {
-
+    Tache stock;
+    for(int i=0; i<increment; i++)
+    {
+        for(int j=i+1; j<increment; j++)
+        {
+            if(strcmp(myTache[i].title,myTache[j].title)>0)
+            {
+                stock=myTache[i];
+                myTache[i]=myTache[j];
+                myTache[j]=stock;
+            }
+        }
+    }
+    Afficher();
 }
 //----trie par deadline
 void liste_Per_deadline()

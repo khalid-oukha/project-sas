@@ -29,7 +29,7 @@ void Menu()
             ajouterTachs();
             break;
         case 3 :
-            Afficher();
+            Menu_Afficher();
             break;
         case 4 :
 
@@ -54,5 +54,49 @@ void Menu()
     }
     while (choix!=0);
 
+
+}
+//----menu de affichage
+void Menu_Afficher()
+{
+
+    int choix;
+
+    do
+    {
+        printf("\t---------------------------------Menu afficher--------------------------------\t");
+        printf("\n\t\t 1. afficher tous les taches   \n");
+        printf("\t\t 2. Trier les tâches par ordre alphabétique.    \n");
+        printf("\t\t 3. Trier les tâches par deadline     \n");
+        printf("\t\t 4. Afficher les tâches dont le deadline est dans 3 jours ou moins.   \n");
+        printf("\t\t 0. Quite  \n");
+        printf("\t----------------------------votre choix------------------------------\t");
+        printf("\n\t\t entrez votre choix :  \n");
+        printf("\t\t");
+        scanf("\t\t %d",&choix);
+
+
+        switch (choix)
+        {
+        case 1 :
+            Afficher();
+            break;
+        case 2 :
+            liste_Per_Alphabetique();
+            break;
+        case 3 :
+            //liste_Per_deadline();
+            break;
+        case 4 :
+            //afficher_deadline();
+            break;
+
+        default :
+            printf("\t\t choix invalide");
+            break;
+        }
+
+    }
+    while (choix!=0);
 
 }

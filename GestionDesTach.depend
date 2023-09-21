@@ -30,3 +30,20 @@
 
 1695254868 c:\users\x390\desktop\project-sas\structure.h
 
+1695283207 source:c:\users\youcode\desktop\project-sas\main.c
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	<string.h>
+	<windows.h>
+	<time.h>
+	"structure.h"
+	"functions.h"
+	"MainMenu.h"
+
+1695283207 c:\users\youcode\desktop\project-sas\structure.h
+
+1695287513 c:\users\youcode\desktop\project-sas\functions.h
+
+1695287759 c:\users\youcode\desktop\project-sas\mainmenu.h
+
