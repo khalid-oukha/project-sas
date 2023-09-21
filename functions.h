@@ -17,6 +17,12 @@ bool exist(int id)
     }
     return false;
 }
+//----convert dates to days .
+int convert_days(int index)
+{
+    int total_days=(myTache[index].deadline.tm_year*365)+(myTache[index].deadline.tm_mon*30)+(myTache[index].deadline.tm_mday);
+    return total_days;
+}
 
 //-----------------------------------------ajoutes une tache---------------------------------------
 
@@ -26,25 +32,25 @@ void ajouterTach()
 ajouterTach:
 
     printf("\n\t -------------------Ajouter un nouveau tache ----------------------");
-    printf("\n\t\t entrer id de tache : ");
+    printf("\n\t\t Entrer id de tache : ");
     scanf("%d", &myTache[increment].id_tache);
     if(exist(myTache[increment].id_tache))
     {
-        printf("id %d deja existe merci de choisir un autre !! ", myTache[increment].id_tache);
-        Sleep(2);
+        printf("\n\t\t ====> id %d Deja existe merci de choisir un autre !! ", myTache[increment].id_tache);
+        sleep(2);
         goto ajouterTach;
     }
     else
     {
         getchar();
-        printf("\n\t\t entrer title de tache : ");
+        printf("\n\t\t Dntrer title de tache : ");
         gets(myTache[increment].title);
 
         printf("\n\t\t entrer description de tache : ");
         gets(myTache[increment].description);
 
         printf("\n\t\t entrer deadline de tache formart YYYY/MM/DD : ");
-        scanf("%d \ %d \ %d", &myTache[increment].deadline.tm_year,&myTache[increment].deadline.tm_mon,&myTache[increment].deadline.tm_mday);
+        scanf("%d %d %d", &myTache[increment].deadline.tm_year,&myTache[increment].deadline.tm_mon,&myTache[increment].deadline.tm_mday);
 
         printf("\n\t\t 1- TO DO : ");
         printf("\n\t\t 2- DOING : ");
@@ -64,7 +70,8 @@ ajouterTach:
             strcpy(myTache[increment].status, "DONE");
             break;
         default :
-            printf("invalide choix!!");
+            system("cls");
+            printf("\n\n\t\t====> invalide choix!!");
             break;
 
         }
@@ -73,9 +80,8 @@ ajouterTach:
 
 
     system("cls");
-    printf("\n\n\t\t-------------------votre tach est bien ajouter-------------------");
+    printf("\n\n\t\t votre tache est bien ajouter !");
     sleep(2);
-    system("cls");
     increment++;
 
 }
@@ -86,8 +92,8 @@ ajouterTach:
 void ajouterTachs()
 {
     int numTaches;
-    printf("Combien de produits souhaitez-vous ?");
-    scanf("%d", &numTaches);
+    printf("\n\t\t Combien de produit souhaitez-vous ? ");
+    scanf(" %d", &numTaches);
     for(int i=0; i<numTaches; i++)
     {
         ajouterTach();
@@ -110,12 +116,13 @@ void Afficher()
     {
         for(int i=0; i<increment; i++)
         {
-            printf("\n\t\t-------------------tache %d -------------------",i+1);
-            printf("\n\t\t %d",myTache[i].id_tache);
+            printf("\n\t\t------------------------------------tache %d -----------------------------------------",i+1);
+            printf("\n\n\t\t %d",myTache[i].id_tache);
             printf("\t\t %s",myTache[i].title);
             printf("\t\t %s",myTache[i].description);
             printf("\t\t %d/%d/%d",myTache[i].deadline.tm_year,myTache[i].deadline.tm_mon,myTache[i].deadline.tm_mday);
             printf("\t\t %s",myTache[i].status);
+            printf("\n\t\t---------------------------------------------------------------------------------------");
         }
     }
 
@@ -138,11 +145,35 @@ void liste_Per_Alphabetique()
             }
         }
     }
+
     Afficher();
 }
 //----trie par deadline
 void liste_Per_deadline()
 {
+    int x,y;
+    Tache stock[10];
+    int numberDays;
+    time_t today;
+    today=time(NULL);
+    numberDays=today/(60*60*24);
+    for(int i=0; i<increment; i++)
+    {
+        x=convert_days(i)-numberDays;
+        for(int j=i+1; j<increment; j++)
+        {
+            y=convert_days(j)-numberDays;
+
+            if(x>y)
+            {
+                stock[1]=myTache[i];
+                myTache[i]=myTache[j];
+                myTache[j]=stock[1];
+            }
+
+        }
+    }
+    Afficher();
 
 }
 //----afficher  deadline 3 jour moix
@@ -159,15 +190,15 @@ void modifier_description (int id)
     if(exist(id))
     {
 
-        printf("\t\t entrez new desciption  :");
-        scanf("%s",&newD);
-        strcpy(myTache[Rechercher_Id(id)].description,newD);
-        printf("\n\n\t\t description bien modifier  :");
+        printf("\n\n\t\t entrez new desciption  :");
+        scanf("%s", newD);
+        strcpy(myTache[Rechercher_Id(id)].description, newD);
+        printf("\n\n\t\t====> Description bien modifier  :");
     }
     else
     {
         system("cls");
-        printf("id %d  id tache introuvable merci de choisir un autre !! ");
+        printf("\n\n\t\t====> Id Tache Introuvable Merci de Choisir un autre !! \n");
 
 
     }
@@ -189,18 +220,18 @@ void modifier_status (int id)
         {
         case 1 :
             strcpy(myTache[Rechercher_Id(id)].status, "TO DO");
-            printf("\n\n\t\t status bien modifier  :");
+            printf("\n\n\t\t====> status bien modifier  :");
             break;
         case 2 :
             strcpy(myTache[Rechercher_Id(id)].status, "DOING");
-            printf("\n\n\t\t status bien modifier  :");
+            printf("\n\n\t\t====> status bien modifier  :");
             break;
         case 3 :
             strcpy(myTache[Rechercher_Id(id)].status, "DONE");
-            printf("\n\n\t\t status bien modifier  :");
+            printf("\n\n\t\t====> status bien modifier  :");
             break;
         default :
-            printf("invalide choix!!");
+            printf("\n\n\t\t====> Invalide choix!!");
             break;
 
         }
@@ -209,7 +240,7 @@ void modifier_status (int id)
     else
     {
         system("cls");
-        printf("id %d  id tache introuvable merci de choisir un autre !! ");
+        printf("\n\n\t\t====> id  id tache introuvable merci de choisir un autre !! ");
 
     }
 
@@ -222,7 +253,7 @@ void modifier_deadline (int id)
     if(exist(id))
     {
 
-        printf("\t\t entrez new deadline format YYYY/MM/DD   :");
+        printf("\n\n\t\t====>\t entrez new deadline format YYYY/MM/DD   :");
         scanf("%d %d %d", &y, &m, &d);
 
         myTache[Rechercher_Id(id)].deadline.tm_year=y;
@@ -230,12 +261,12 @@ void modifier_deadline (int id)
         myTache[Rechercher_Id(id)].deadline.tm_mday=d;
         //strcpy(myTache[Rechercher_Id(id)].description,newD);
         system("cls");
-        printf("\n\n\t\t deadline bien modifier  ");
+        printf("\n\n\t\t====>\t deadline bien modifier  ");
     }
     else
     {
         system("cls");
-        printf("id %d  id tache introuvable merci de choisir un autre !! ");
+        printf("\n\n\t\t====>\t id tache introuvable merci de choisir un autre !! ");
 
 
     }
@@ -253,8 +284,8 @@ void supprimer (int id)
             myTache[i]=myTache[i+1];
 
         }
-            increment--;
-            printf("\n\n--------------bien supprimer------------");
+        increment--;
+        printf("\n\n\t\t====>-----------------bien supprimer-------------------");
 
     }
     else
@@ -282,8 +313,9 @@ int Rechercher_Id (int id)
             return i;
         }
     }
+    printf("\n\n\t\t====> Aucan tache pour le moment \n");
     return 0;
-    printf("\n\t\t Aucan tache pour le moment \n");
+
 }
 //----Rechercher par Titre
 void Rechercher_Titre (char titel[30])
@@ -308,7 +340,7 @@ void Rechercher_Titre (char titel[30])
 //----Afficher nbr total tâches.
 void nbr_Total ()
 {
-    printf("\n\t\t nombre total des taches est : %d \n",increment);
+    printf("\n\n\t\t====> Nombre total des taches est : %d \n",increment);
 }
 //----Afficher nbr tâches complètes / incomplètes.
 void nbr_T_completes () {}

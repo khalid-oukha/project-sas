@@ -23,13 +23,16 @@ void Menu_Afficher()
         {
 
         case 1 :
+            system("cls");
             Afficher();
             break;
         case 2 :
+            system("cls");
             liste_Per_Alphabetique();
             break;
         case 3 :
-            //liste_Per_deadline();
+            system("cls");
+            liste_Per_deadline();
             break;
         case 4 :
             //afficher_deadline();
