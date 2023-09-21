@@ -1,48 +1,89 @@
 
-typedef struct
-{
-
-    int id_tache;
-    char title[30];
-    char description[100];
-    int dateFin;
-    int dateDebut;
-    char status[30];
-} LesTache;
-int increment=0;
-LesTache myTache[100];
 //-----------------------------------------tableau des taches---------------------------------------
+
+int increment=0;
+Tache myTache[100];
+
+//----check if id already exist .
+
+bool exist(int id)
+{
+    for(int i=0; i<increment; i++)
+    {
+        if(id==myTache[i].id_tache)
+        {
+            return true;
+        }
+    }
+    return false;
+}
 
 //-----------------------------------------ajoutes une tache---------------------------------------
 
 void ajouterTach()
 {
+    int choixStatus;
+ajouterTach:
 
     printf("\n\t -------------------Ajouter un nouveau tache ----------------------");
     printf("\n\t\t entrer id de tache : ");
     scanf("%d", &myTache[increment].id_tache);
+    if(exist(myTache[increment].id_tache))
+    {
+        printf("id %d deja existe merci de choisir un autre !! ", myTache[increment].id_tache);
+        sleep(2);
+        goto ajouterTach;
+    }
+    else
+    {
+        getchar();
+        printf("\n\t\t entrer title de tache : ");
+        gets(myTache[increment].title);
 
-    printf("\n\t\t entrer title de tache : ");
-    scanf("%s", &myTache[increment].title);
+        printf("\n\t\t entrer description de tache : ");
+        gets(myTache[increment].description);
 
-    printf("\n\t\t entrer description de tache : ");
-    scanf("%s", &myTache[increment].description);
+        printf("\n\t\t entrer deadline de tache formart YYYY/MM/DD : ");
+        scanf("%d \ %d \ %d", &myTache[increment].deadline.tm_year,&myTache[increment].deadline.tm_mon,&myTache[increment].deadline.tm_mday);
 
-    printf("\n\t\t entrer date debut de tache : ");
-    scanf("%id", &myTache[increment].dateDebut);
+        printf("\n\t\t 1- TO DO : ");
+        printf("\n\t\t 2- DOING : ");
+        printf("\n\t\t 3- DONE : ");
+        printf("\n\t\t choisi status de tache : ");
+        scanf("%d", &choixStatus);
+        do
+        {
 
-    printf("\n\t\t entrer date fin de tache : ");
-    scanf("%d", &myTache[increment].dateFin);
-
-    printf("\n\t\t entrer status de tache : ");
-    scanf("%s", &myTache[increment].status);
 
 
-    system("cls");
-    printf("\n\n\t\t-------------------votre tach est bien ajouter-------------------");
-    sleep(2);
-    system("cls");
-    increment++;
+
+            switch(choixStatus)
+            {
+            case 1 :
+                strcpy(myTache[increment].status, "TO DO");
+                break;
+            case 2 :
+                strcpy(myTache[increment].status, "DOING");
+                break;
+            case 3 :
+                strcpy(myTache[increment].status, "DONE");
+                break;
+            default :
+                printf("invalide choix!!");
+                break;
+            }
+        }
+        while(choixStatus!=0);
+
+
+
+        system("cls");
+        printf("\n\n\t\t-------------------votre tach est bien ajouter-------------------");
+        sleep(2);
+        system("cls");
+        increment++;
+
+    }
 
 }
 
@@ -54,50 +95,36 @@ void ajouterTachs()
     scanf("%d", &numTaches);
     for(int i=0; i<numTaches; i++)
     {
-        printf("\n\t\t ----------Ajouter un nouveau tache -------------");
-
-        printf("\n\t\t entrer id de tache : ");
-        scanf("%d", &myTache[i].id_tache);
-
-        printf("\n\t\t entrer title de tache : ");
-        scanf("%s", &myTache[i].title);
-
-
-        printf("\n\t\t entrer description de tache : ");
-        getchar();
-        gets(myTache[i].description);
-
-
-        printf("\n\t\t entrer date debut de tache : ");
-        scanf("%id", &myTache[i].dateDebut);
-
-        printf("\n\t\t entrer date fin de tache : ");
-        scanf("%d", &myTache[i].dateFin);
-
-        printf("\n\t\t entrer status de tache : ");
-        scanf("%s", &myTache[i].status);
-
+        ajouterTach();
         system("cls");
-        printf("\n\n\t\t-------------------tache %d est bien ajouter-------------------",i+1);
-        sleep(1);
-        system("cls");
-
     }
-    increment=increment+numTaches;
+
 }
 //-----------------------------------------Afficher list des tache ---------------------------------------
 void Afficher()
 {
-    for(int i=0;i<increment;i++)
+    if(increment==0)
     {
-        printf("\n\t\t-------------------tache %d-------------------\n",i+1);
-        printf("\t\t %d",myTache[i].id_tache);
-        printf("\t\t %s",myTache[i].title);
-        printf("\t\t %s",myTache[i].description);
-        printf("\t\t %d",myTache[i].dateDebut);
-        printf("\t\t %d",myTache[i].dateFin);
-        printf("\t\t %s",myTache[i].status);
+
+        system("cls");
+        printf("\n\t\t Aucan tache pour le moment \n");
+        sleep(2);
+        system("cls");
     }
+    else
+    {
+        for(int i=0; i<increment; i++)
+        {
+            printf("\n\t\t-------------------tache %d-------------------\n",i+1);
+            printf("\n\t\t %d",myTache[i].id_tache);
+            printf("\t\t %s",myTache[i].title);
+            printf("\t\t %s",myTache[i].description);
+            printf("\t\t %d/%d/%d",myTache[i].deadline.tm_year,myTache[i].deadline.tm_mon,myTache[i].deadline.tm_mday);
+            printf("\t\t %s",myTache[i].status);
+        }
+    }
+
+
 }
 //----menu de affichage
 void Menu_Afficher()
@@ -144,4 +171,6 @@ void nbr_T_completes () {}
 void nbr_T_incompletes () {}
 //----afficher nbr jours restants .
 void nbr_jour_rest () {}
+
+
 

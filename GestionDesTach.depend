@@ -13,3 +13,20 @@
 
 1695224251 source:c:\users\youcode\desktop\gestiondestach\t_functions.c
 
+1695255118 source:c:\users\x390\desktop\project-sas\main.c
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	<string.h>
+	<windows.h>
+	<time.h>
+	"structure.h"
+	"functions.h"
+	"MainMenu.h"
+
+1695254056 c:\users\x390\desktop\project-sas\mainmenu.h
+
+1695255605 c:\users\x390\desktop\project-sas\functions.h
+
+1695254868 c:\users\x390\desktop\project-sas\structure.h
+

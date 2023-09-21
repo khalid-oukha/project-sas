@@ -32,15 +32,9 @@
 			<Add option="-Wall" />
 		</Compiler>
 		<Unit filename="MainMenu.h" />
-		<Unit filename="T_functions.c">
-			<Option compilerVar="CC" />
-		</Unit>
 		<Unit filename="functions.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="prototype.h">
-			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="structure.h" />
 		<Extensions>
