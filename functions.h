@@ -31,7 +31,7 @@ ajouterTach:
     if(exist(myTache[increment].id_tache))
     {
         printf("id %d deja existe merci de choisir un autre !! ", myTache[increment].id_tache);
-        sleep(2);
+        Sleep(2);
         goto ajouterTach;
     }
     else
@@ -104,7 +104,7 @@ void Afficher()
 
         system("cls");
         printf("\n\t\t Aucan tache pour le moment \n");
-        sleep(2);
+        Sleep(2);
         system("cls");
     }
     else
@@ -154,80 +154,83 @@ void afficher_deadline()
 
 //-----------------------------------------Modifier les taches---------------------------------------
 
-void modifier_description ()
+void modifier_description (int id)
 {
+    char newD[30];
+    if(exist(id))
+    {
 
-    /* Tache stock;
-     int num;
-     printf("\n\t\t entrer id de tache : ");
-     scanf("%d", &num);
+        printf("\t\t entrez new desciption  :");
+        scanf("%s",&newD);
+        strcpy(myTache[Rechercher_Id(id)].description,newD);
+        printf("\t\t description bien modifier  :");
+    }
+    else
+    {
+        system("cls");
+        printf("id %d  id tache introuvable merci de choisir un autre !! ");
 
-     if(exist(num))
-     {
 
-         if(myTache.id_tache==num)
-         {
-             printf("old title :",myTache.id)
-             printf("modifier le title :");
-             myTache.title
-         }
-     }
-     else
-     {
-         systeme("cls");
-         printf("id %d  id tache introuvable merci de choisir un autre !! ", myTache[increment].id_tache);
-         sleep(2);
-         break;
-     }*/
+    }
 }
-void modifier_status () {}
-void modifier_deadline () {}
+
+    void modifier_status () {}
+    void modifier_deadline () {}
 
 //-----------------------------------------Supprimer une tache---------------------------------------
-void supprimer () {}
+    void supprimer () {}
 
 //-----------------------------------------Rechercher une tache--------------------------------------
 
 //----Rechercher par Id.
-void Rechercher_Id (int id)
-{
-    for(int i=0; i<increment; i++)
+    int Rechercher_Id (int id)
     {
-        if(id==myTache[i].id_tache)
+        for(int i=0; i<increment; i++)
         {
-            printf("\n\t---------------------------tache %d -------------------------",i+1);
-            printf("\n\t\t %d",myTache[i].id_tache);
-            printf("\t\t %s",myTache[i].title);
-            printf("\t\t %s",myTache[i].description);
-            printf("\t\t %d/%d/%d",myTache[i].deadline.tm_year,myTache[i].deadline.tm_mon,myTache[i].deadline.tm_mday);
-            printf("\t\t %s",myTache[i].status);
+            if(id==myTache[i].id_tache)
+            {
+                printf("\n\t---------------------------tache %d -------------------------",i+1);
+                printf("\n\t\t %d",myTache[i].id_tache);
+                printf("\t\t %s",myTache[i].title);
+                printf("\t\t %s",myTache[i].description);
+                printf("\t\t %d/%d/%d",myTache[i].deadline.tm_year,myTache[i].deadline.tm_mon,myTache[i].deadline.tm_mday);
+                printf("\t\t %s",myTache[i].status);
+                return i;
+            }
         }
+        return 0;
+        printf("\n\t\t Aucan tache pour le moment \n");
     }
-
-    printf("\n\t\t Aucan tache pour le moment \n");
-}
 //----Rechercher par Titre
-void Rechercher_Titre (char titel[20])
-{
-    for(int i=0; i<increment; i++)
+    void Rechercher_Titre (char titel[30])
     {
-        if(titel[20]==myTache[i].id_tache)
+        for(int i=0; i<increment; i++)
         {
+            if(strcmp(titel[20],myTache[i].title)==0)
+            {
+                printf("\n\t---------------------------tache %d -------------------------",i+1);
+                printf("\n\t\t %d",myTache[i].id_tache);
+                printf("\t\t %s",myTache[i].title);
+                printf("\t\t %s",myTache[i].description);
+                printf("\t\t %d/%d/%d",myTache[i].deadline.tm_year,myTache[i].deadline.tm_mon,myTache[i].deadline.tm_mday);
+                printf("\t\t %s",myTache[i].status);
 
-            return true;
+            }
         }
-    }
 
-}
+    }
 
 //-----------------------------------------Statistiques des taches-----------------------------------
 //----Afficher nbr total tâches.
-void nbr_Total () {}
+    void nbr_Total ()
+    {
+        printf("\n\t\t nombre total des taches est : %d \n",increment);
+    }
 //----Afficher nbr tâches complètes / incomplètes.
-void nbr_T_completes () {}
-void nbr_T_incompletes () {}
+    void nbr_T_completes () {}
+    void nbr_T_incompletes () {}
 //----afficher nbr jours restants .
-void nbr_jour_rest () {}
+    void nbr_jour_rest () {}
 
 
 
