@@ -1,7 +1,6 @@
 
 typedef struct
 {
-
     int id_tache;
     char title[30];
     char description[100];
