@@ -20,13 +20,21 @@ bool exist(int id)
 //----convert dates to days .
 int calcul_deadline(int index)
 {
-    int deadline_days=(myTache[index].deadline.tm_year*365)+(myTache[index].deadline.tm_mon*30)+(myTache[index].deadline.tm_mday);
-    int numberDays;
-    time_t today = time(NULL);
-    numberDays=today/(60*60*24);
-    deadline_days=deadline_days-numberDays;
 
-    return deadline_days;
+    //int index=Rechercher_Id (id);
+
+    time_t T_now=time(NULL);
+    struct tm date = *localtime(&T_now);
+    int d=((myTache[index].deadline.tm_year)*365)+((myTache[index].deadline.tm_mon)*30)+myTache[index].deadline.tm_mday;
+
+    int years=date.tm_year+1900;
+    int months=date.tm_mon+1;
+    int days=date.tm_mday;
+
+    int all_days = d-((years*365)+(months*30)+days);
+    //printf("\n \t \t %d",all_days);
+    return all_days;
+
 }
 
 //-----------------------------------------ajoutes une tache---------------------------------------
@@ -183,16 +191,22 @@ void afficher_deadline()
 {
     for(int i=0; i<increment; i++)
     {
-        printf("`\t %d",calcul_deadline(i));
-        if(calcul_deadline(i)<=3)
+
+        if(calcul_deadline(i)>=0)
         {
-            printf("\n\t\t------------------------------------tache %d -----------------------------------------",i+1);
+            printf("\n\t\t==================================tache %d =============================================",i+1);
             printf("\n\n\t\t %d",myTache[i].id_tache);
             printf("\t\t %s",myTache[i].title);
             printf("\t\t %s",myTache[i].description);
             printf("\t\t %d/%d/%d",myTache[i].deadline.tm_year,myTache[i].deadline.tm_mon,myTache[i].deadline.tm_mday);
             printf("\t\t %s",myTache[i].status);
-            printf("\n\t\t---------------------------------------------------------------------------------------");
+            printf("\n\n\t\t===========> le nombre de jours restants de  tâche %d \t: %d",i+1,calcul_deadline(i));
+            printf("\n\t\t========================================================================================");
+        }
+        else{
+            printf("\n\t\t========================================================================================");
+            printf("\n\t\t======== La date limite est passée il ya %d jour",calcul_deadline(i));
+            printf("\n\t\t========================================================================================");
         }
     }
 
@@ -334,11 +348,11 @@ int Rechercher_Id (int id)
 
 }
 //----Rechercher par Titre
-void Rechercher_Titre (char titel[30])
+void Rechercher_Titre (char T[30])
 {
     for(int i=0; i<increment; i++)
     {
-        if(strcmp(titel[20],myTache[i].title)==0)
+        if(strcmp(myTache[i].title,T)==0)
         {
             printf("\n\t---------------------------tache %d -------------------------",i+1);
             printf("\n\t\t %d",myTache[i].id_tache);
@@ -355,10 +369,10 @@ void Rechercher_Titre (char titel[30])
 //-----------------------------------------Statistiques des taches-----------------------------------
 
 //----Afficher nbr tâches complètes / incomplètes.
-    int done_count,todo_count;
+
 void nbr_T_completes ()
 {
-
+    int done_count,todo_count;
     for (int i = 0; i < increment; i++)
     {
         if (strcmp(myTache[i].status, "DONE") == 0)
@@ -367,6 +381,7 @@ void nbr_T_completes ()
         }
         else if (strcmp(myTache[i].status, "DOING"  ) == 0 || strcmp(myTache[i].status, "TO DO"  ) == 0)
         {
+            //printf("\n\n\t\t tle nombre de jours restants de  tâche %d :");
             todo_count++;
         }
     }
@@ -377,7 +392,21 @@ void nbr_T_completes ()
 
 }
 //----afficher nbr jours restants .
-void nbr_jour_rest () {
+void nbr_jour_rest ()
+{
+
+    for(int i=0; i<increment; i++)
+    {
+
+
+        printf("\n\t=====================================tache %d==========================================",i+1);
+        printf("\n\t\t %d",myTache[i].id_tache);
+        printf("\t\t %s",myTache[i].title);
+        printf("\t\t %s",myTache[i].description);
+        printf("\t\t %d/%d/%d",myTache[i].deadline.tm_year,myTache[i].deadline.tm_mon,myTache[i].deadline.tm_mday);
+        printf("\t\t %s",myTache[i].status);
+        printf("\n\n\t\t===========> le nombre de jours restants de  tâche %d \t: %d",i+1,calcul_deadline(i));
+    }
 
 
 
