@@ -42,14 +42,13 @@ int calcul_deadline(int index)
 void ajouterTach()
 {
     int choixStatus;
-ajouterTach:
-
-    printf("\n\t=========================================== Ajouter nouveau tache ===========================================");
+        ajouterTach:
+    printf("\n\t====================================== Ajouter nouveau tache ===========================================");
     printf("\n\t\t Entrer id de tache : ");
     scanf("%d", &myTache[increment].id_tache);
     if(exist(myTache[increment].id_tache))
     {
-        printf("\n\t\t ====> id %d Deja existe merci de choisir un autre !! ", myTache[increment].id_tache);
+        printf("\n\n\t\t============> id %d Deja existe merci de choisir un autre !! ", myTache[increment].id_tache);
         sleep(2);
         goto ajouterTach;
     }
